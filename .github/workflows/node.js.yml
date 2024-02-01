@@ -27,13 +27,9 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
+        cache: 'node-app-cache-${{ matrix.node-version }}-${{ matrix.os }}'
     - name: Run install in preparation for node app
       run: npm install
-    - name: Upload artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: node-app-artifact-${{ matrix.node-version }}-${{ matrix.os }}
-        path: .
   
   Tests: 
 
@@ -49,22 +45,14 @@ jobs:
     
     steps:
       - uses: actions/checkout@v3
-
-      - uses: actions/download-artifact@main
-        with:
-          name: node-app-artifact-${{ matrix.node-version }}-${{ matrix.os }}
       
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'node-app-cache-${{ matrix.node-version }}-${{ matrix.os }}'
+
       - name: Run tests for node app
         run: npm test
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: node-app-artifact-${{ matrix.node-version }}-${{ matrix.os }}-tests
-          path: .
-
     
 
