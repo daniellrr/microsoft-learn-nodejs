@@ -55,6 +55,7 @@ jobs:
         uses: dawidd6/action-download-artifact@v3
         with:
           name: node-app-artifact-${{ matrix.node-version }}-${{ matrix.os }}
+          path: .
       
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
