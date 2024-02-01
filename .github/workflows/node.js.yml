@@ -27,7 +27,16 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'node-app-cache-${{ matrix.node-version }}-${{ matrix.os }}'
+
+    - name: Cache node modules
+      uses: actions/cache@v3
+      with:
+        path: ~/.npm
+        key: node-modules-${{ runner.os }}-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          node-modules-${{ runner.os }}-${{ matrix.node-version }}-
+          node-modules-${{ runner.os }}-
+
     - name: Run install in preparation for node app
       run: npm install
   
@@ -50,7 +59,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'node-app-cache-${{ matrix.node-version }}-${{ matrix.os }}'
+
+      - name: Cache node modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: node-modules-${{ runner.os }}-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            node-modules-${{ runner.os }}-${{ matrix.node-version }}-
+            node-modules-${{ runner.os }}-
 
       - name: Run tests for node app
         run: npm test
