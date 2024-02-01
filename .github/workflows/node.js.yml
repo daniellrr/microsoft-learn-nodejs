@@ -28,17 +28,17 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
+    - name: Run install in preparation for node app
+      run: npm install
+
     - name: Cache node modules
       uses: actions/cache@v3
       with:
         path: ~/.npm
-        key: node-modules-${{ runner.os }}-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
+        key: node-modules-${{ matrix.os }}-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
         restore-keys: |
-          node-modules-${{ runner.os }}-${{ matrix.node-version }}-
-          node-modules-${{ runner.os }}-
-
-    - name: Run install in preparation for node app
-      run: npm install
+          node-modules-${{ matrix.os }}-${{ matrix.node-version }}-
+          node-modules-${{ matrix.os }}-
   
   Tests: 
 
@@ -64,10 +64,10 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.npm
-          key: node-modules-${{ runner.os }}-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
+          key: node-modules-${{ matrix.os }}-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            node-modules-${{ runner.os }}-${{ matrix.node-version }}-
-            node-modules-${{ runner.os }}-
+            node-modules-${{ matrix.os }}-${{ matrix.node-version }}-
+            node-modules-${{ matrix.os }}-
 
       - name: Run tests for node app
         run: npm test
