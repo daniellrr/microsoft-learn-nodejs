@@ -12,7 +12,7 @@ jobs:
        echo $GITHUB_WORKFLOW
        echo "-----------------------------------------"
 
-       if [ ${GITHUB_WORKFLOW} = "Build Codeserver ARM64" ]; then
+       if [ "${GITHUB_WORKFLOW}" = "Build Codeserver ARM64" ]; then
          echo "git workflow is indeed arm64"
        else
          echo "just no"
