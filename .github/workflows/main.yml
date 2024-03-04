@@ -16,5 +16,6 @@ jobs:
          echo "git workflow is indeed arm64"
        else
          echo "just no"
+       fi
     
     
