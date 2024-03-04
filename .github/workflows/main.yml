@@ -1,0 +1,17 @@
+on:
+  workflow_dispatch:
+
+jobs:
+  echo-something:
+    runs-on: ubuntu-latest
+    steps:
+    - name: arch before qemu
+      run: uname -a && dpkg --print-architecture
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v1
+      with:
+        platforms: arm64
+    - name: arch after qemu to arm64
+      run: uname -a && dpkg --print-architecture
+    
+    
