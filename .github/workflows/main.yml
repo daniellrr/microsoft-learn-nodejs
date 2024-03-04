@@ -7,6 +7,14 @@ jobs:
   echo-something:
     runs-on: ubuntu-latest
     steps:
-    - run: echo $GITHUB_WORKFLOW
+    - run: |
+    
+       echo $GITHUB_WORKFLOW
+       echo "-----------------------------------------"
+
+       if [ $GITHUB_WORKFLOW = "Build Codeserver ARM64" ]; then
+         echo "git workflow is indeed arm64"
+       else
+         echo "just no"
     
     
